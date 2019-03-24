@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style/general.css">
+        <link rel="stylesheet" type="text/css" href="style/loginStyle.css">
+        <title>Login Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/login.js" type="text/javascript"></script>
+    </head>
+    <body onload="run()">
+        
+        <div class="form-container">
+            <div class="user-image" ></div>
+            <ul class="list">
+                <li><h2>Ingresar</h2></li>
+                <li><input type="text" id="correoElectronicoLogin" placeholder="Correo Electronico"></li>
+                <li><input type="password" id="ContraseñaLogin" placeholder="Contraseña"></li>
+                <!--<li><input type="button" name="Ok" value="Ok"></li>-->
+                <li><button class="continueButton" onclick="loguearse()">Continue</button></li>
+                <li>Aun no tienes una Cuenta?</li>
+                <li><a href="signup.html" class="link">Crear Cuenta</a></li>
+            </ul>
+            
+        </div>
+        
+    </body>
+</html>

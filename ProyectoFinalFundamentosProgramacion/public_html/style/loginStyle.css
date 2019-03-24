@@ -1,0 +1,87 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 16, 2019, 11:41:36 AM
+    Author     : Carlos Ramirez
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    padding-top: 20vh;
+}
+
+.form-container{
+    width: 250px;
+    height: auto;
+    padding: 50px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000;
+    margin: auto;
+    position: relative;
+}
+
+ul.list{
+    list-style-type: none;
+    text-align: center;
+}
+
+ul.list li{
+    width: 250px;
+    margin-bottom: 15px;
+}
+
+ul.list li input{
+    width: 250px;
+    text-align: center;
+    padding: 11px 0px;
+    border: none;
+    background-color: #d3d3d3;
+    border-radius: 5px;
+}
+
+ul.list li input[type="button"]{
+    background-color: #00FF00;
+    color: #fff;
+    
+}
+
+.continueButton{
+    background-color: #00FF00;
+    color: #fff;
+    width: 250px;
+    text-align: center;
+    padding: 11px 0px;
+    border: none;
+    background-color: #00FF00;
+    border-radius: 5px;
+}
+
+ul.list li:nth-child(5){
+    color: #0056b3;
+}
+
+.link{
+    text-decoration: none;
+    color: #dc3545;
+}
+
+.user-image{
+    background: url('../images/userImage.png') no-repeat;
+    width: 100px;
+    height: 100px;
+    background-size: 100%;
+    position: absolute;
+    top: -60px;
+    left: 114px;
+}
+
+
+

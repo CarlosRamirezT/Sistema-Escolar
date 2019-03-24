@@ -1,0 +1,23 @@
+#butaca{
+    outline: 25px;
+}
+
+#butaca table{
+    background-color: #333;
+    margin: auto;
+    position: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#butaca th{
+    background-color: #4CAF50;
+}
+
+#butaca td{
+    color: #f2f2f2;
+}
+
+#butaca table,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}

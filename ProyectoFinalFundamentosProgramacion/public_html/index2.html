@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="general.css">
+        <script src="general.js"></script>
+    </head>
+    <body onload="ocultarTodo(),mostrarLogin(),initializar()">
+
+        <!--Barra de navegacion superior-->
+        <header class="header" id="barra-navegacion">
+                <ul class="nav">
+                    <li>
+                        <a onclick="mostrarPrincipal()" class="active">Principal</a>
+                    </li>
+                    <li>
+                        <a >Academico</a>
+                        <ul>
+                            <li><a onclick="mostrarPlanEstudio()">Plan Estudio</a></li>
+                            <li><a onclick="mostrarSeleccionarMaterias()">Seleccionar Materias</a></li>
+                            <li><a onclick="mostrarConsultarSeleccion()">Consultar Seleccion</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Admisiones</a>
+                        <ul>
+                            <li><a onclick="mostrarSolicitarAdmision()">Solicitar Admision</a></li>
+                            <li><a onclick="mostrarDocumentosAdmision()">Documentos Admision</a></li>
+                            <li><a onclick="mostrarConsultarAdmision()">Consultar Admision</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Beca</a>
+                        <ul>
+                            <li><a onclick="mostrarSolicitarBeca()">Solicitar Beca</a></li>
+                            <li><a onclick="mostrarVerEstadoBeca()">Ver Estado Beca</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Caja</a>
+                        <ul>
+                            <li><a onclick="mostrarBalancePendiente()">Balance Pendiente</a></li>
+                            <li><a onclick="mostrarPagoOnline()">Pago en Linea</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Educacion Permanente</a>
+                        <ul>
+                            <li><a onclick="mostrarInscripcionPermanente()">Inscripcion Permanente</a></li>
+                            <li><a onclick="mostrarConsultarInscripcion()">Consultar Inscripcion</a></li>
+                            <li><a onclick="mostrarHorarioPermanente()">Horario Permanente</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Gestion Docencia</a>
+                        <ul>
+                            <li><a onclick="mostrarConsultarCalificacion()">Consultar Calificacion</a></li>
+                            <li><a onclick="mostrarHistorialCalificaciones()">Historial Calificaciones</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Residencia Academica</a>
+                        <ul>
+                            <li><a onclick="mostrarSolicitarResidencia()">Solicitar Residencia</a></li>
+                            <li><a onclick="mostrarSolicitarSalida()">Solicitar Salida</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Solicitud</a>
+                        <ul>
+                            <li><a onclick="mostrarCambiarCarrera()">Cambio Carrera</a></li>
+                            <li><a onclick="mostrarCambiarPemsun()">Cambio Pemsun</a></li>
+                            <li><a onclick="mostrarCambiarFuenteEstudio()">Cambio Fuente Estudio</a></li>
+                            <li><a onclick="mostrarExtensionBeca()">Extension Beca</a></li>
+                            <li><a onclick="mostrarExtensionCredito()">Extension Credito</a></li>
+                            <li><a onclick="mostrarRetiro()">Retiro</a></li>
+                            <li><a onclick="mostrarCambiarGrupo()">Cambio Grupo</a></li>
+                            <li><a onclick="mostrarGraduacion()">Graduacion</a></li>
+                            <li><a onclick="mostrarRevisionCalificacion()">Revision Calificacion</a></li>
+                            <li><a onclick="mostrarPasantia()">Pasantia</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a >Configuracion</a>
+                        <ul>
+                            <li><a onclick="mostrarCambiarCorreo()">Cambio correo</a></li>
+                            <li><a onclick="mostrarCambiarcontraseña()">Cambio contraseña</a></li>
+                            <li><a onclick="mostrarCambiarPerfil()">Cambio Perfil</a></li>
+                        </ul>
+                    </li>
+                    <li><a onClick="mostrarLogin()" class="exit">Salir</a></li>
+                </ul>
+            </header>
+    
+
+
+        <!--login html -->
+
+    
+
+            <div class="form-container" id="login-html">
+                <div class="login-image" ></div>
+                <ul class="list">
+                    <li><h2>Ingresar</h2></li>
+                    <li><input type="text" id="correoElectronicoLogin" placeholder="Correo Electronico"></li>
+                    <li><input type="password" id="ContraseñaLogin" placeholder="Contraseña"></li>
+                    <!--<li><input type="button" name="Ok" value="Ok"></li>-->
+                    <li><button id="boton-login-continuar" class="continueButton" onclick="loguearse()">Continue</button></li>
+                    <li>Aun no tienes una Cuenta?</li>
+                    <li><a onclick="mostrarSignup()" class="link">Crear Cuenta</a></li>
+                </ul>
+                
+            </div>
+
+    
+
+        <!--signup html -->
+
+        <div id="signup-html">
+
+
+            <div class="form-container">
+            
+                <ul class="list">
+                    <li><h2>Registrarse</h2></li>
+                    <div class="user-image"></div>
+                    <input type="file" id="imagenUsuario" class="imagen-usuario-input">
+                    <li><input type="email" id="CorreoElectronicoSignup" placeholder="Correo Electronico"></li>
+                    <li><input type="password" id="ContraseñaSignup" placeholder="Contraseña"></li>
+                    <li><input type="text" id="matriculaSignup" placeholder="Matricula o ID"></li>
+                    <li><input type="text" id="carreraDepartamentoSignup" placeholder="Carrera o Departamento"></li>
+                    <li><input type="text" id="NombreSignup" placeholder="Nombre y Apellido"></li>
+                    <li><input type="text" id="CedulaSignup" placeholder="Cedula de Identidad"></li>
+                    <li><input type="number" id="EdadSignup" placeholder="Edad"></li>
+                    <li><input type="date" id="FechaNacimientoSignup"></li>
+                    <li>
+                        <select name="Tipo de Cuenta" id="TipoCuentaSignup">
+                            <option>Tipo de Cuenta</option>
+                            <option>Estudiante</option>
+                            <option>Profesor</option>
+                            <option>Administrativo</option>
+                            <option>Admin del Sitema</option>
+                        </select>
+                    </li>
+                    <!-- <li><input type="button" name="Ok" value="Ok"></li> -->
+                    <li><button class="continueButton" onclick="crearUsuarioSignUp()">Crear Cuenta</button></li>
+                    <li>Ya tienes una cuenta?</li>
+                    <li><a onclick="mostrarLogin()" class="link">Ingresar</a></li>
+                </ul>
+                
+            </div>
+
+        </div>
+
+
+
+
+        <!--pagina principal html-->
+
+        <div id="pagina-principal-html">
+
+            <h4 class="titulo">Calendario Academico 2019-C-1</h4>
+
+            <section id="butaca">                
+                <table id="tablaActividades"></table>
+            </section>
+
+            <div class="botones-derecha" >
+                <ul>
+                    <li><button onclick="agregarActividad()">Agregar Actividad</button></li>
+                    <li><button onclick="insertarActividad()">Insertar Actividad</button></li>
+                    <li id="redColor"><button onclick="eliminarActividad()">Eliminar Actividad</button></li>
+                    <li id="redColor"><button onclick="eliminarUltimaActividad()">Eliminar Ultima Actividad</button></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!--academico / consultar inscripcion html-->
+
+        <div id="academico-consultar-inscripcion-html">
+
+            <h4 class="titulo">Materias Seleccionadas Actualmente</h4>
+
+            <section id="butaca">                
+                <table id="tabla-materias-seleccionadas-actualmente"></table>
+            </section>
+
+
+        </div>
+
+        <!--academico / seleccion materias html-->
+
+        <div id="academico-seleccion-materias-html">
+
+            <section id="butaca">                
+                <table id="tablaSeleccionMaterias"></table>
+            </section>
+
+            <div class="botones-derecha" >
+                <ul>
+                    <li><button onclick="mostrarCuatrimestre()">Mostrar Cuatrimestre</button></li>
+                    <li id="redColor"><button  onclick="seleccionarMateria()">Seleccionar Materia</button></li>
+                </ul>
+            </div>
+
+        </div>
+
+         <!--academico / plan estudio html-->
+
+         <div id="academico-plan-estudio-html">
+
+            <h4 class="titulo">Plan de Estudios</h4>
+
+            <section id="butaca">                
+                <table id="tablaPlanEstudio"></table>
+            </section>
+
+            <div class="botones-derecha" >
+                <ul>
+                    <li><button onclick="agregarMaterias()">Agregar Materia</button></li>
+                    <li><button onclick="insertarMateria()">Insertar Materia</button></li>
+                    <li id="redColor"><button onclick="eliminarMateria()">Eliminar Materia</button></li>
+                    <li id="redColor"><button onclick="eliminarUltimaMateria()">Eliminar Ultima Materia</button></li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+
+
+
+        <!--admisiones / solicitar admision html-->
+
+        <div id="admisiones-solicitar-admision-html">
+
+            <h4 class="titulo">Formulario Solicitud Admision</h4>
+
+            <div class="form-admision" id="formulario-admision">
+
+                    
+        
+                    <ul>
+                        <li><h3>General</h3></li>
+                        <li><input type="text" placeholder="Nombre y Apellido"></li>
+                        <li><input type="text" placeholder="Fecha Nacimiento"></li>
+                        <li><input type="text" placeholder="Pais Nacimiento"></li>
+                        <li><input type="text" placeholder="Ciudad Nacimiento"></li>
+                        <li><input type="text" placeholder="Nacionalidad"></li>
+                        <li>
+                            <select name="Idioma" id="Idioma-admision">
+                                    <option>Sexo</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                                <option>Otro</option>
+                            </select>
+                        </li>
+                        <li>
+                                <select name="Idioma" id="Idioma-admision">
+                                        <option>Estado Civil</option>
+                                    <option>Casado</option>
+                                    <option>Soltero</option>
+                                    <option>Otro</option>
+                                </select>
+                            </li>
+                        <li>
+                            <select name="Idioma" id="Idioma-admision">
+                                    <option>Idioma</option>
+                                <option>Ingles</option>
+                                <option>Español</option>
+                                <option>Frances</option>
+                                <option>Otro</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="Estatus Ciudadania" id="estatus-ciudadania-admision">
+                                    <option>Estatus Ciudadania</option>
+                                    <option>Ciudadano Dominicano</option>
+                                <option>Extranjero no Residente</option>
+                                <option>Extranjero Residente</option>
+                                <option>Otro</option>
+                            </select>
+                        </li>
+                        <li><input type="text" placeholder="Cedula Identidad"></li>
+                        <li><input type="text" placeholder="Pasaporte"></li>
+                    </ul>  
+                    
+                    
+            
+
+                    
+
+                    <ul>
+                        <li><h3>Personal</h3></li>
+                        <li><input type="text" placeholder="Calle y Numero"></li>
+                        <li><input type="text" placeholder="Barrio o Sector"></li>
+                        <li><input type="text" placeholder="Ciudad"></li>
+                        <li><input type="text" placeholder="Pais Residencia"></li>
+                        <li><input type="text" placeholder="Telefono Contacto"></li>
+                        <li><input type="text" placeholder="Correo Electronico"></li>
+                        <li><input type="text" placeholder="Facebook"></li>
+                        <li><input type="text" placeholder="Lugar de Trabajo"></li>
+                        <li><input type="text" placeholder="Cargo Trabajo"></li>
+                        <li><input type="text" placeholder="Telefono Trabajo"></li>
+                        <li><input type="text" placeholder="Extension Trabajo"></li>
+                    </ul>
+                
+
+                       
+
+                    <ul>
+                            <li><h3>Academico</h3></li>
+                            <li>
+                                    <select name="Nivel Academico" id="estatus-ciudadania-admision">
+                                            <option>Nivel Academico</option>
+                                            <option>Grado</option>
+                                        <option>Postgrado</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </li>
+                                <li>
+                                        <select name="Estatus Ciudadania" id="estatus-ciudadania-admision">
+                                                <option>Estutus Ciudadania</option>
+                                                <option>Ciudadano Dominicano</option>
+                                            <option>Extranjero no Residente</option>
+                                            <option>Extranjero Residente</option>
+                                            <option>Otro</option>
+                                        </select>
+                                        
+                                    </li>
+                                    <li><input type="number" placeholder="Año de Ingreso"></li>
+                                    <li><input type="number" placeholder="Cuatrimestre de Ingreso"></li>
+                                    <li><input type="text" placeholder="Carrera"></li>
+                                    <li><input type="text" placeholder="Centro Educativo de Procedencia"></li>
+                                    <li><button onclick="" class="continueButton">Enviar Solicitud</button></li>
+                                    <li><button onclick=""  style="background-color: tomato;" class="continueButton" >Vaciar Campos</button></li>
+
+                    </ul>
+
+        </div>
+
+            <div class="botones-derecha" >
+                <ul>
+                    <li><button onclick="">Ver Solicitudes Realizadas</button></li>
+                    
+                </ul>
+            </div>
+
+
+            <div id="solicitudes-admision" style="display: none">
+
+                    <section id="butaca">                
+                        <table id="tabla-solicitudes-admision"></table>
+                    </section>
+
+            </div>
+
+            
+
+        </div>
+
+        <!--admisiones / documentos admision html-->
+
+        <div id="admisiones-documentos-admision-html">
+
+            <h4 class="titulo">Documentos Admision</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-documentos-admision"></table>
+                 </section>
+
+        </div>
+
+
+        <!--admisiones / consultar admision html-->
+
+        <div id="admisiones-consultar-admision-html">
+
+                <h4 class="titulo">Consultar Admision</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-consultar-admision"></table>
+                 </section>
+
+        </div>
+
+        
+
+
+
+
+
+
+        <!--beca / solicitar beca html-->
+
+        <div id="beca-solicitar-beca-html">
+
+            <h4 class="titulo">Formulario Solicitud Beca</h4>
+
+            <div class="form-admision" id="formulario-admision">
+
+                    
+        
+                    <ul>
+                        <li><h3>General</h3></li>
+                        <li><input type="text" placeholder="Nombre y Apellido"></li>
+                        <li><input type="text" placeholder="Matricula"></li>
+                        <li><input type="text" placeholder="Pais Nacimiento"></li>
+                        <li><input type="text" placeholder="Ciudad Nacimiento"></li>
+                        <li><input type="text" placeholder="Cedula Identidad"></li>
+                        <li><input type="text" placeholder="Cuatrimestre Inicio"></li>
+                        <li><input type="text" placeholder="Carrera"></li>
+                        <li><input type="text" placeholder="Centro Procedencia"></li>
+                        <li><h4>Fecha Solicitud</h4><input type="date"></li>
+                    </ul>  
+                    
+                    <ul>
+                            <li><h3>Centro Educativo</h3></li>
+                            <li><input type="text" placeholder="Centro Procedencia"></li>
+                            <li><input type="text" placeholder="Telefono Centro Procedencia"></li>
+                            <li><input type="text" placeholder="Correo Centro Procedencia"></li>
+                            <li><input type="text" placeholder="Centro Procedencia"></li>
+                            <li><button onclick="" class="continueButton">Enviar Solicitud</button></li>
+                            <li><button onclick=""  style="background-color: tomato;" class="continueButton" >Vaciar Campos</button></li>
+                        </ul>  
+            
+
+                    
+
+                   
+
+        </div>
+
+            <div class="botones-derecha" >
+                <ul>
+                    <li><button onclick="">Ver Solicitudes Realizadas</button></li>
+                    
+                </ul>
+            </div>
+
+
+            <div id="solicitudes-admision" style="display: none">
+
+                    <section id="butaca">                
+                        <table id="tabla-solicitudes-admision"></table>
+                    </section>
+
+            </div>
+
+        </div>
+
+        <!--beca / ver estado html-->
+
+        <div id="beca-ver-estado-html">
+
+            <h1>beca-ver-estado-html</h1>
+
+        </div>
+
+
+
+
+
+        <!--caja / balance pendiente html-->
+
+        <div id="caja-balance-pendiente-html">
+
+                <h4 class="titulo">Balance Pendiente</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-balance-pendiente"></table>
+                 </section>
+
+                 <div class="botones-derecha" >
+                        <ul>
+                            <li><button onclick="">Agregar Balance</button></li>
+                            <li id="redColor"><button onclick="">Eliminar Balance</button></li>
+                            <li><button onclick="">Marcar Pagado</button></li>                                                    
+                        </ul>
+                    </div>
+
+        </div>
+
+        <!--caja / pago en linea html-->
+
+        <div id="caja-pago-online-html">
+
+                <h4 class="titulo">Formulario Pago en linea</h4>
+
+                <div class="form-admision" id="formulario-admision">
+    
+                        
+            
+                        <ul>
+                            <li><h3>General</h3></li>
+                            <li>
+                                    <select name="Concepto Pago" id="caja-pago-online-form">
+                                        <option>Concepto Pago</option>
+                                        <option>Pago Inscripcion</option>
+                                        <option>Pago 1 Cuota Creditos</option>
+                                        <option>Pago 2 Cuota Creditos</option>
+                                        <option>Pago 3 Cuota Creditos</option>
+                                        <option>Pago Cuatrimestre Completo</option>
+                                        <option>Pago Residencia - Villa Panamericana</option>
+                                        <option>Pago Residencia - Campus Itla</option>
+                                        <option>Pago Balance Pendiente</option>
+                                        <option>Pago Graduacion</option>
+                                        <option>Otro</option>
+                                    </select>
+                                    
+                                </li>
+                                <li><input type="text" placeholder="Numero Tarjeta Credito"></li>
+                                <li><input type="text" placeholder="Fecha Fencimiento Tarjeta"></li>
+                                <li><input type="text" placeholder="Codigo Tarjeta Credito"></li>
+                                <li><input type="text" placeholder="Numero Cedula Identidad"></li>
+                            <li><h4>Fecha Solicitud Pago</h4><input type="date"></li>
+                            <li><button onclick="" class="continueButton">Enviar Pago</button></li>
+                            <li><button onclick=""  style="background-color: tomato;" class="continueButton" >Vaciar Campos</button></li>
+                        </ul>  
+                        
+                        
+    
+            </div>
+    
+                <div class="botones-derecha" >
+                    <ul>
+                        <li><button onclick="">Ver Pagos Realizados</button></li>
+                        <li><button onclick="">Aprobar Pago</button></li>
+                        <li id="redColor"><button onclick="">Denegar Pago</button></li>
+                        <li id="redColor"><button onclick="">Eliminar Pago</button></li>                        
+                    </ul>
+                </div>
+
+        </div>
+
+
+
+        <!--educacion permanente / inscripcion permanente html-->
+
+        <div id="educacion-permanente-inscripcion-permanente-html">
+
+                <h4 class="titulo">Cursos Disponibles</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-cursos-permanente"></table>
+                 </section>
+
+                 <div class="botones-derecha" >
+                        <ul>
+                            <li><button onclick="seleccionarCursoPermanente()">Inscribir Curso</button></li>
+                            <li><button onclick="agregarCursoPermanente()">Agregar Curso</button></li>
+                            <li><button onclick="insertarCursoPermanente()">Insertar Curso</button></li>
+                            <li id="redColor"><button onclick="eliminarCursoPermanente()">Eliminar Curso</button></li>
+                            <li id="redColor"><button onclick="eliminarUltimoCursoPermanente()">Eliminar Ultimo Curso</button></li>                                           
+                        </ul>
+                    </div>
+
+        </div>
+
+        <!--educacion permanente / consultar inscripcion html-->
+
+        <div id="educacion-permanente-consultar-inscripcion-html">
+
+                <h4 class="titulo">Cursos Permanentes Inscritos Actualmente</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-cursos-permanentes-inscritos"></table>
+                </section>
+    
+                <div class="botones-derecha" >
+                    <ul>
+                        <li id="redColor"><button onclick="eliminarCursoPermanenteInscrito()">Eliminar Curso</button></li>
+                        <li id="redColor"><button onclick="eliminarUltimaCursoPermanenteInscrito()">Eliminar Ultima Curso</button></li>
+                    </ul>
+                </div>
+
+        </div>
+
+        <!--educacion permanente / horario permanenete html-->
+
+        <div id="educacion-permanente-horario-permanente-html">
+
+            <h1>horario permanente</h1>
+
+        </div>
+
+
+
+
+
+
+
+
+        <!--gestion docencia / consultar calificacion html-->
+
+        <div id="gestion-docencia-consultar-calificacion-html">
+
+                <h4 class="titulo">Consultar Calificacion</h4>
+
+                <section id="butaca">                
+                    <table id="tabla-calificaciones"></table>
+                </section>
+    
+                <div class="botones-derecha" >
+                    <ul>
+                        <li><button onclick="setPrimerParcial()">Primer Parcial</button></li>
+                        <li><button onclick="setSegundoParcial()">Segundo Parcial</button></li>
+                        <li><button onclick="setPracticas()">Proyecto o Practicas</button></li>
+                        <li><button onclick="setFinal()">Examen Final</button></li>
+                        <li><button onclick="oficializarCalificacion()">Oficializar Calificacion</button></li>
+                    </ul>
+                </div>
+
+        </div>
+
+        <!--gestion docencia / historial calificacion html-->
+
+        <div id="gestion-docencia-historial-calificacion-html">
+
+            <h1>gestion docencia historial calificacion</h1>
+
+        </div>
+
+
+
+
+
+
+        
+        <!--residencia academica solicitar residencia html-->
+
+        <div id="residencia-academica-solicitar-residencia-html">
+
+            <h1>residencia-academica-solicitar-residencia</h1>
+
+        </div>
+
+        <!--residencia academica html-->
+
+        <div id="residencia-academica-solicitar-salida-html">
+
+            <h1>residencia-academica-solicitar-salida</h1>
+
+        </div>
+
+
+
+
+
+        <!--solicitud cambio carrera html-->
+
+        <div id="solicitud-cambio-carrera-html">
+
+            <h1>solicitud-cambio-carrera</h1>
+
+        </div>
+
+        <!--solicitud cambio pemsun html-->
+
+        <div id="solicitud-cambio-pemsun-html">
+
+            <h1>solicitud-cambio-pemsun</h1>
+
+        </div>
+
+        <!--solicitud cambio fuente estudio html-->
+
+        <div id="solicitud-cambio-fuente-estudio-html">
+
+            <h1>solicitud-cambio-fuente-estudio</h1>
+
+        </div>
+
+
+        <!--solicitud extension beca html-->
+
+        <div id="solicitud-extension-beca-html">
+
+            <h1>solicitud-extension-beca</h1>
+
+        </div>
+
+         <!--solicitud extension credito html-->
+
+         <div id="solicitud-extension-credito-html">
+
+            <h1>solicitud-extension-credito</h1>
+
+        </div>
+         
+        <!--solicitud retiro html-->
+
+        <div id="solicitud-retiro-html">
+
+            <h1>solicitud-retiro</h1>
+
+        </div>
+
+
+        <!--solicitud cambio grupo html-->
+
+        <div id="solicitud-cambio-grupo-html">
+
+            <h1>solicitud-cambio-grupo</h1>
+
+        </div>
+
+        <!--solicitud graduacion html-->
+
+        <div id="solicitud-graduacion-html">
+
+            <h1>solicitud-graduacion</h1>
+
+        </div>
+
+
+        <!--solicitud revision calificacion html-->
+
+        <div id="solicitud-revision-calificacion-html">
+
+            <h1>solicitud-revision-calificacion</h1>
+
+        </div>
+
+        <!--solicitud pasantia html-->
+
+        <div id="solicitud-pasantia-html">
+
+            <h1>solicitud-pasantia</h1>
+
+        </div>
+
+
+
+
+
+
+
+
+
+        <!--configuracion cambiar correo html-->
+
+        <div id="configuracion-cambiar-correo-html">
+
+            <h1>configuracion-cambiar-correo</h1>
+
+        </div>
+
+        <!--configuracion cambio contraseña html-->
+
+        <div id="configuracion-cambiar-contraseña-html">
+
+            <h1>configuracion-cambio-contraseña</h1>
+
+        </div>
+
+        <!--configuracion cambio perfil html-->
+
+        <div id="configuracion-cambiar-perfil-html">
+
+            <h1>configuracion-cambio-perfil</h1>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    </body>
+</html>
