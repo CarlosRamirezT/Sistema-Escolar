@@ -46,6 +46,7 @@ function ocultarTodo(){
 
     document.getElementById("residencia-academica-solicitar-residencia-html").style.display="none";
     document.getElementById("residencia-academica-solicitar-salida-html").style.display="none";
+    document.getElementById("residencia-academica-solicitar-extension-residencia-html").style.display="none";
 
     // solicitud
 
@@ -64,7 +65,8 @@ function ocultarTodo(){
 
     document.getElementById("configuracion-cambiar-correo-html").style.display="none";
     document.getElementById("configuracion-cambiar-contraseña-html").style.display="none";
-    document.getElementById("configuracion-cambiar-perfil-html").style.display="none";
+    document.getElementById("configuracion-ver-usuarios-registrados-html").style.display="none";
+    document.getElementById("configuracion-informacion-usuario-html").style.display="none";
 
 }
 
@@ -118,7 +120,6 @@ function mostrarConsultarSeleccion(){
 function mostrarSolicitarAdmision(){
     ocultarTodo();
     document.getElementById("admisiones-solicitar-admision-html").style.display="";
-    
 }
 
 function mostrarDocumentosAdmision(){
@@ -130,7 +131,7 @@ function mostrarDocumentosAdmision(){
 function mostrarConsultarAdmision(){
     ocultarTodo();
     document.getElementById("admisiones-consultar-admision-html").style.display="";
-    
+    mostrarTablaConsultarAdmision();
 }
 
 // mostrar opciones de beca
@@ -144,7 +145,7 @@ function mostrarSolicitarBeca(){
 function mostrarVerEstadoBeca(){
     ocultarTodo();
     document.getElementById("beca-ver-estado-html").style.display="";
-    
+    mostrarTablaVerEstadoBeca();
 }
 
 // mostrar opciones caja
@@ -152,7 +153,7 @@ function mostrarVerEstadoBeca(){
 function mostrarBalancePendiente(){
     ocultarTodo();
     document.getElementById("caja-balance-pendiente-html").style.display="";
-    
+    mostrarTablaBalancesPendientes();
 }
 
 function mostrarPagoOnline(){
@@ -192,7 +193,7 @@ function mostrarConsultarCalificacion(){
 function mostrarHistorialCalificaciones(){
     ocultarTodo();
     document.getElementById("gestion-docencia-historial-calificacion-html").style.display="";
-    
+    mostrarTablaHistorialCalificacion();
 }
 
 // mostrar opciones residencia academica
@@ -207,6 +208,11 @@ function mostrarSolicitarSalida(){
     ocultarTodo();
     document.getElementById("residencia-academica-solicitar-salida-html").style.display="";
     
+}
+
+function mostrarSolicitarExtensionResidencia(){
+    ocultarTodo();
+    document.getElementById("residencia-academica-solicitar-extension-residencia-html").style.display="";
 }
 
 // mostrar opciones solicitudes
@@ -284,10 +290,16 @@ function mostrarCambiarcontraseña(){
     document.getElementById("configuracion-cambiar-contraseña-html").style.display="";
 }
 
-function mostrarCambiarPerfil(){
+function mostrarUsuariosRegistrados(){
     ocultarTodo();
-    document.getElementById("configuracion-cambiar-perfil-html").style.display="";
-    
+    document.getElementById("configuracion-ver-usuarios-registrados-html").style.display="";
+    mostrarTablaUsuariosRegistrados();
+}
+
+function mostrarInformacionUsuario(){
+    ocultarTodo();
+    document.getElementById("configuracion-informacion-usuario-html").style.display="";
+    mostrarTablaInformacionUsuario();
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -311,13 +323,13 @@ var idUsuarioActual;
 
 class DocumentosAdmision{
     constructor(){
-        this.actaNacimiento = false;
-        this.copiaCedula = false;
-        this.certificadoBachiller = false;
-        this.recordNotas = false;
-        this.fotos = false;
-        this.certificadoMedico = false;
-        this.formularioAdmision = false;
+        this.actaNacimiento = "Sin Enviar";
+        this.copiaCedula = "Sin Enviar";
+        this.certificadoBachiller = "Sin Enviar";
+        this.recordNotas = "Sin Enviar";
+        this.fotos = "Sin Enviar";
+        this.certificadoMedico = "Sin Enviar";
+        this.formularioAdmision = "Sin Enviar";
     }
 }
 
@@ -365,13 +377,19 @@ class Usuario{
             this.pemsun;
             this.matricula = id;
             this.materiasSeleccionadasActualmente = [];
+
             this.admision = false;
-            this.solicitudAdmision;
+            this.formularioAdmision;
+            this.documentosAdmision = new DocumentosAdmision();
+
             this.beca = false;
-            this.solicitudBeca;
+            this.solicitudBeca = new SolicitudBeca();
+
             this.credito = false;
             this.solicitudCredito;
+
             this.balancesPendientes = [];
+
             this.materiasPermanentesSeleccionadasActualmente = [];
             this.historialMaterias = [];
             this.residencia = false;
@@ -384,11 +402,12 @@ class Usuario{
             this.solicitudesRevisionCalificacion = [];
             this.solicitudPasantia;
 
-            this.documentosAdmision;
-
+            
+            
        //  }
 
         this.carreraDepartamento = carreraDepartamento;
+
 
         // alert("Usuario " + this.correoElectronico + " creado Exitosamente");
          
@@ -1238,6 +1257,145 @@ function mostrarTablaMateriasSeleccionadasActualmente(){
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+class SolicitudAdmision{
+    constructor(nombre,fechaNacimiento,paisNacimiento,ciudadNacimiento,nacionalidad,
+        sexo,estadoCivil,idioma,estatusCiudadania,cedula,pasaporte,calleNumero,
+        barrioSector,ciudad,paisResidencia,telefonoContacto,correoElectronico,
+        facebook,lugarTrabajo,cargoTrabajo,telefonoTrabajo,extensionTrabajo,
+        añoIngreso,cuatrimestreIngreso,carrera,centroEducativoProcedencia,
+        fechaSolicitud){
+            
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.paisNacimiento = paisNacimiento;
+        this.ciudadNacimiento = ciudadNacimiento;
+        this.nacionalidad = nacionalidad;
+        this.sexo = sexo;
+        this.estadoCivil = estadoCivil;
+        this.idioma = idioma;
+        this.estatusCiudadania = estatusCiudadania;
+        this.cedula = cedula;
+        this.pasaporte = pasaporte;
+        
+        this.calleNumero = calleNumero;
+        this.barrioSector = barrioSector;
+        this.ciudad = ciudad;
+        this.paisResidencia = paisResidencia;
+        this.telefonoContacto = telefonoContacto;
+        this.correoElectronico = correoElectronico;
+        this.facebook = facebook;
+        this.lugarTrabajo = lugarTrabajo;
+        this.cargoTrabajo = cargoTrabajo;
+        this.telefonoTrabajo = telefonoTrabajo;
+        this.extensionTrabajo = extensionTrabajo;
+
+        this.añoIngreso = añoIngreso;
+        this.cuatrimestreIngreso = cuatrimestreIngreso;
+        this.carrera = carrera;
+        this.centroEducativoProcedencia = centroEducativoProcedencia;
+
+        this.fechaSolicitud = fechaSolicitud;
+
+        this.aprobada = false;
+    }
+}
+
+var formulariosAdmision = [];
+
+
+function enviarSolicitudAdmision(){
+    var nombre = document.getElementById("nombre-admision").value;
+    var fechaNacimiento = document.getElementById("fecha-nacimiento-admision").value;
+    var paisNacimiento = document.getElementById("pais-nacimiento-admision").value;
+    var ciudadNacimiento = document.getElementById("ciudad-nacimiento-admision").value;
+    var nacionalidad = document.getElementById("nacionalidad-admision").value;
+
+    var sexo = document.getElementById("sexo-admision").value;
+    var ciudadNacimiento = document.getElementById("sexo-admision").value;
+    var estadoCivil = document.getElementById("estado-civil-admision").value;
+    var idioma = document.getElementById("idioma-admision").value;
+    var estatusCiudadania = document.getElementById("estatus-ciudadania-admision").value;
+
+    var cedula = document.getElementById("cedula-admision").value;
+    var pasaporte = document.getElementById("pasaporte-admision").value;
+    var calleNumero = document.getElementById("calle-numero-admision").value;
+    var barrioSector = document.getElementById("barrio-sector-admision").value;
+    var ciudad = document.getElementById("ciudad-admision").value;
+    var paisResidencia = document.getElementById("pais-residencia-admision").value;
+    var telefonoContacto = document.getElementById("telefono-contacto-admision").value;
+    var correoElectronico = document.getElementById("correo-electronico-admision").value;
+    var facebook = document.getElementById("facebook-admision").value;
+    var lugarTrabajo = document.getElementById("lugar-trabajo-admision").value;
+    var cargoTrabajo = document.getElementById("cargo-trabajo-admision").value;
+    var telefonoTrabajo = document.getElementById("telefono-trabajo-admision").value;
+    var extensionTrabajo = document.getElementById("extension-trabajo-admision").value;
+    var añoIngreso = document.getElementById("año-ingreso-admision").value;
+    var cuatrimestreIngreso = document.getElementById("cuatrimestre-ingreso-admision").value;
+    var carrera = document.getElementById("carrera-admision").value;
+    var centroEducativoProcedencia = document.getElementById("centro-educativo-procedencia-admision").value;
+    var fechaSolicitud = document.getElementById("fecha-solicitud-admision").value;
+
+    var solicitudAdmision = new SolicitudAdmision(nombre,fechaNacimiento,paisNacimiento,ciudadNacimiento,nacionalidad,
+        sexo,estadoCivil,idioma,estatusCiudadania,cedula,pasaporte,calleNumero,
+        barrioSector,ciudad,paisResidencia,telefonoContacto,correoElectronico,
+        facebook,lugarTrabajo,cargoTrabajo,telefonoTrabajo,extensionTrabajo,
+        añoIngreso,cuatrimestreIngreso,carrera,centroEducativoProcedencia,
+        fechaSolicitud);
+
+    // aprobar solicitud admision
+    solicitudAdmision.aprobada = true;
+    agregarBalancePendiente("Pago Inscripcion",6650);
+
+    formulariosAdmision.push(solicitudAdmision);
+    usuarios[idUsuarioActual].formularioAdmision = "Enviado";
+    usuarios[idUsuarioActual].documentosAdmision.formularioAdmision = solicitudAdmision;
+    alert("Su solicitud de Admision ha sido enviada");
+    vaciarCamposSolicitudAdmision();
+
+    usuarios[idUsuarioActual].carrera = carrera;
+}
+
+function vaciarCamposSolicitudAdmision(){
+    document.getElementById("nombre-admision").value = "";
+    document.getElementById("fecha-nacimiento-admision").value = "";
+    document.getElementById("pais-nacimiento-admision").value = "";
+    document.getElementById("ciudad-nacimiento-admision").value = "";
+    document.getElementById("nacionalidad-admision").value = "";
+
+    document.getElementById("sexo-admision").value = "Sexo";
+    document.getElementById("estado-civil-admision").value = "Estado Civil";
+    document.getElementById("idioma-admision").value = "Idioma";
+    document.getElementById("estatus-ciudadania-admision").value = "Estatus Ciudadania";
+
+    document.getElementById("cedula-admision").value = "";
+    document.getElementById("pasaporte-admision").value = "";
+    document.getElementById("calle-numero-admision").value = "";
+    document.getElementById("barrio-sector-admision").value = "";
+    document.getElementById("ciudad-admision").value = "";
+    document.getElementById("pais-residencia-admision").value = "";
+    document.getElementById("telefono-contacto-admision").value = "";
+    document.getElementById("correo-electronico-admision").value = "";
+    document.getElementById("facebook-admision").value = "";
+    document.getElementById("lugar-trabajo-admision").value = "";
+    document.getElementById("cargo-trabajo-admision").value = "";
+    document.getElementById("telefono-trabajo-admision").value = "";
+    document.getElementById("extension-trabajo-admision").value = "";
+    document.getElementById("año-ingreso-admision").value = "";
+    document.getElementById("cuatrimestre-ingreso-admision").value = "";
+    document.getElementById("carrera-admision").value = "";
+    document.getElementById("centro-educativo-procedencia-admision").value = "";
+    document.getElementById("fecha-solicitud-admision").value = "";
+}
+
+function llenarCamposSolicitudAdmisionInformacionDisponible(){
+    document.getElementById("nombre-admision").value = usuarios[idUsuarioActual].nombre;
+    document.getElementById("fecha-nacimiento-admision").value = usuarios[idUsuarioActual].fechaNacimiento;
+    document.getElementById("pais-nacimiento-admision").value = "";
+    document.getElementById("cedula-admision").value = usuarios[idUsuarioActual].cedula;
+    document.getElementById("correo-electronico-admision").value = usuarios[idUsuarioActual].correoElectronico;
+    mostrarSolicitarAdmision();
+}
+
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -1274,6 +1432,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
 
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Aprobar");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
 
         tblBody.appendChild(fila);
 
@@ -1287,8 +1450,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.actaNacimiento){
+        if(usuarios[idUsuarioActual].documentosAdmision.actaNacimiento === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.actaNacimiento === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1300,7 +1466,14 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-acta-nacimiento-input";
-        o.name = "Agragar";
+        o.setAttribute("onChange","enviarActaNacimiento()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.setAttribute("value","Aprobar");
+        o.id = "admisiones-acta-nacimiento-button";
+        o.setAttribute("onClick","aprobarActaNacimiento()");
         celda.appendChild(o);
         fila.appendChild(celda);
         tblBody.appendChild(fila);
@@ -1313,8 +1486,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.cedula){
+        if(usuarios[idUsuarioActual].documentosAdmision.copiaCedula === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.copiaCedula === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1326,7 +1502,14 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-copia-cedula-input";
-        o.name = "Agragar";
+        o.setAttribute("onChange","enviarCopiaCedula()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.name = "Aprobar";
+        o.id = "admisiones-copia-cedula-button";
+        o.setAttribute("onClick","aprobarCopiaCedula()");
         celda.appendChild(o);
         fila.appendChild(celda);
         tblBody.appendChild(fila);
@@ -1337,8 +1520,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller){
+        if(usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1350,11 +1536,18 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-certificado-bachiller-input";
-        o.name = "Agragar";
+        o.setAttribute("onChange","enviarCertificadoBachiller()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.name = "Aprobar";
+        o.id = "admisiones-certificado-bachiller-button";
+        o.setAttribute("onClick","aprobarCertificadoBachiller()");
         celda.appendChild(o);
         fila.appendChild(celda);
         tblBody.appendChild(fila);
-        tblBody.appendChild(fila);
+        
 
         var fila = document.createElement("tr");
         var celda = document.createElement("td");
@@ -1362,8 +1555,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.recordNotas){
+        if(usuarios[idUsuarioActual].documentosAdmision.recordNotas === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.recordNotas === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1375,7 +1571,14 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-record-notas-input";
-        o.name = "Agregar";
+        o.setAttribute("onChange","enviarRecordNotas()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.name = "Aprobar";
+        o.id = "admisiones-record-notas-button";
+        o.setAttribute("onClick","aprobarRecordNotas()");
         celda.appendChild(o);
         fila.appendChild(celda);
         tblBody.appendChild(fila);
@@ -1386,8 +1589,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.fotos){
+        if(usuarios[idUsuarioActual].documentosAdmision.fotos === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.fotos === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1399,10 +1605,16 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-fotos-input";
-        o.name = "Agregar";
+        o.setAttribute("onChange","enviarFotos()");
         celda.appendChild(o);
         fila.appendChild(celda);
-        tblBody.appendChild(fila);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.name = "Aprobar";
+        o.id = "admisiones-fotos-button";
+        o.setAttribute("onClick","aprobarFotos()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
         tblBody.appendChild(fila);
 
         var fila = document.createElement("tr");
@@ -1411,8 +1623,11 @@ function mostrarTablaDocumentosAdmision(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
         var celda = document.createElement("td");
-        if(usuarios[idUsuarioActual].documentosAdmision.certificadoMedico){
+        if(usuarios[idUsuarioActual].documentosAdmision.certificadoMedico === "Enviado"){
             var textoCelda = document.createTextNode("Enviado");
+            celda.style.backgroundColor= "dodgerBlue";
+        }else if(usuarios[idUsuarioActual].documentosAdmision.certificadoMedico === "Aprobado"){
+            var textoCelda = document.createTextNode("Aprobado");
             celda.style.backgroundColor= "#4CAF50";
         }else{
             var textoCelda = document.createTextNode("Sin Enviar");
@@ -1424,7 +1639,14 @@ function mostrarTablaDocumentosAdmision(){
         var o = document.createElement('input');
         o.type = "file";
         o.id = "admisiones-certificado-medico-input";
-        o.name = "Agregar";
+        o.setAttribute("onChange","enviarCertificadoMedico()");
+        celda.appendChild(o);
+        fila.appendChild(celda);
+        var celda = document.createElement("td");
+        var o = document.createElement('button');
+        o.name = "Aprobar";
+        o.id = "admisiones-certificado-medico-button";
+        o.setAttribute("onClick","aprobarCertificadoMedico()");
         celda.appendChild(o);
         fila.appendChild(celda);
         tblBody.appendChild(fila);
@@ -1438,6 +1660,600 @@ function mostrarTablaDocumentosAdmision(){
         console.info("Tabla generada exitosamente");
     
     
+
+}
+
+// enviar los documentos
+
+function enviarActaNacimiento(){
+    usuarios[idUsuarioActual].documentosAdmision.actaNacimiento = "Enviado";
+    alert("Acta de Nacimiento Enviada");
+    mostrarDocumentosAdmision();
+}
+
+function enviarCopiaCedula(){
+    usuarios[idUsuarioActual].documentosAdmision.copiaCedula = "Enviado";
+    alert("Copia de la Cedula Enviada");
+    mostrarDocumentosAdmision();
+}
+
+function enviarCertificadoBachiller(){
+    usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller = "Enviado";
+    alert("Certificado de Bachiller Enviado");
+    mostrarDocumentosAdmision();
+}
+
+function enviarRecordNotas(){
+    usuarios[idUsuarioActual].documentosAdmision.recordNotas = "Enviado";
+    alert("Record de Notas Enviado");
+    mostrarDocumentosAdmision();
+}
+
+function enviarFotos(){
+    usuarios[idUsuarioActual].documentosAdmision.fotos = "Enviado";
+    alert("Fotos Enviadas");
+    mostrarDocumentosAdmision();
+}
+
+function enviarCertificadoMedico(){
+    usuarios[idUsuarioActual].documentosAdmision.certificadoMedico = "Enviado";
+    alert("Certificado Medico Enviado");
+    mostrarDocumentosAdmision();
+}
+
+// aprobar los documentos
+
+function aprobarActaNacimiento(){
+    if(usuarios[idUsuarioActual].documentosAdmision.actaNacimiento === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.actaNacimiento = "Aprobado";
+        alert("Acta de Nacimiento Aprobada");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+function aprobarCopiaCedula(){
+    if(usuarios[idUsuarioActual].documentosAdmision.copiaCedula === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.copiaCedula= "Aprobado";
+        alert("Copia de la Cedula Aprobada");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+function aprobarCertificadoBachiller(){
+    if(usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.certificadoBachiller = "Aprobado";
+        alert("Certificado de Bachiller Aprobado");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+function aprobarRecordNotas(){
+    if(usuarios[idUsuarioActual].documentosAdmision.recordNotas === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.recordNotas = "Aprobado";
+        alert("Record de Notas Aprobado");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+function aprobarFotos(){
+    if(usuarios[idUsuarioActual].documentosAdmision.fotos === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.fotos = "Aprobado";
+        alert("Fotos Aprobadas");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+function aprobarCertificadoMedico(){
+    if(usuarios[idUsuarioActual].documentosAdmision.certificadoMedico === "Enviado"){
+        usuarios[idUsuarioActual].documentosAdmision.certificadoMedico = "Aprobado";
+        alert("Certificado Medico Aprobado");
+        mostrarDocumentosAdmision();
+    }else{
+        alert("Aun no ha Enviado el documento")
+    }
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // consultarAdmision
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function mostrarTablaConsultarAdmision(){
+
+    var tabla = document.getElementById("tabla-consultar-admision");
+    tabla.innerHTML = "";
+    var cuerpoTabla = document.createElement("tbody");
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Descripcion");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Completada");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+    
+    cuerpoTabla.appendChild(fila);
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("td");
+    var textCelda = document.createTextNode("Formulario Admision");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("th");
+    var formularioAdmisionCompleto = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.aprobada;
+    if(formularioAdmisionCompleto){
+        var textCelda = document.createTextNode("Completada");
+        celda.style.backgroundColor = "#00FF00";
+    }else{
+        var textCelda = document.createTextNode("Incompleto");
+        celda.style.backgroundColor = "tomato";
+    }
+    
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+    
+    cuerpoTabla.appendChild(fila);
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("td");
+    var textCelda = document.createTextNode("Documentos Admision");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("td");
+    var documentosAdmisionCompletos = usuarios[idUsuarioActual].documentosAdmision.actaNacimiento === "Aprobado" && usuarios[idUsuarioActual].documentosAdmision.copiaCedula === "Aprobado";
+    if(documentosAdmisionCompletos){
+        var textCelda = document.createTextNode("Completada");
+        celda.style.backgroundColor = "#00FF00";
+    }else{
+        var textCelda = document.createTextNode("Incompleto");
+        celda.style.backgroundColor = "tomato";
+    }
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+    
+    cuerpoTabla.appendChild(fila);
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("td");
+
+    if(formularioAdmisionCompleto && documentosAdmisionCompletos){
+        usuarios[idUsuarioActual].admision = true;
+    }
+
+    if(usuarios[idUsuarioActual].admision){
+        var textCelda = document.createTextNode("Admitido");
+        celda.style.backgroundColor = "#00FF00";
+    }else{
+        var textCelda = document.createTextNode("Aun no esta Admitido");
+        celda.style.backgroundColor = "tomato";
+    }
+    celda.setAttribute("colspan","2");
+    
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    
+    
+    cuerpoTabla.appendChild(fila);
+
+
+    tabla.appendChild(cuerpoTabla);
+
+}
+
+function aprobarSolicitudAdmision(){
+
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // solicitar beca
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+class SolicitudBeca{
+    constructor(nombre,matricula,correoElectronico,telefono,paisNacimiento,ciudadNacimiento,cedula,
+        cuatrimestreInicio,carrera,fechaSolicitud,centroProcedencia,telefonoCentroProcedencia,correoCentroProcedencia){
+
+        this.nombre = nombre;
+        this.matricula = matricula;
+        this.correElectronico = correoElectronico;
+        this.telefono = telefono;
+        this.paisNacimiento = paisNacimiento;
+        this.ciudadNacimiento = ciudadNacimiento;
+        this.cedula = cedula;
+        this.cuatrimestreInicio = cuatrimestreInicio;
+        this.carrera = carrera;
+        this.fechaSolicitud = fechaSolicitud;
+        this.centroProcedencia = centroProcedencia;
+        this.telefonoCentroProcedencia = telefonoCentroProcedencia;
+        this.correoCentroProcedencia = correoCentroProcedencia;
+        this.aprobada = false;
+
+    }
+}
+
+var solicitudesBeca = [];
+
+function enviarSolicitudBeca(){
+    if(usuarios[idUsuarioActual].admision){
+        var nombre = document.getElementById("nombre-solicitud-beca").value;
+        var matricula = document.getElementById("matricula-solicitud-beca").value;
+        var correo = document.getElementById("correo-solicitud-beca").value;
+        var telefono = document.getElementById("telefono-solicitud-beca").value;
+        var paisNacimiento = document.getElementById("pais-nacimiento-solicitud-beca").value;
+        var ciudadNacimiento = document.getElementById("ciudad-nacimiento-solicitud-beca").value;
+        var cedula = document.getElementById("cedula-solicitud-beca").value;
+        var cuatrimestreInicio = document.getElementById("cuatrimestre-inicio-solicitud-beca").value;
+        var carrera = document.getElementById("carrera-solicitud-beca").value;
+        var fechaSolicitud = document.getElementById("fecha-solicitud-beca").value;
+        var centroProcedencia = document.getElementById("centro-procedencia-solicitud-beca").value;
+        var telefonoCentroProcedencia = document.getElementById("telefono-centro-procedencia-solicitud-beca").value;
+        var correoCentroProcedencia = document.getElementById("correo-centro-procedencia-solicitud-beca").value;
+
+        var solicitudBeca = new SolicitudBeca(nombre,matricula,correo,telefono,paisNacimiento,ciudadNacimiento,cedula,
+            cuatrimestreInicio,carrera,fechaSolicitud,centroProcedencia,telefonoCentroProcedencia,correoCentroProcedencia);
+        
+        solicitudBeca.aprobada = true;
+        solicitudesBeca.push(solicitudBeca);
+        usuarios[idUsuarioActual].solicitudBeca = solicitudBeca;
+        alert("Solicitud de Beca Enviada");
+        vaciarCamposSolicitudBeca();
+    }else{
+        alert("Necesita ser Admitido para poder solicitar una beca");
+    }
+}
+
+function llenarCamposSolicitudBecaInformacionDisponible(){
+    if(usuarios[idUsuarioActual].admision){
+        document.getElementById("nombre-solicitud-beca").value = usuarios[idUsuarioActual].nombre;
+        document.getElementById("matricula-solicitud-beca").value = usuarios[idUsuarioActual].matricula;
+        document.getElementById("correo-solicitud-beca").value = usuarios[idUsuarioActual].correoElectronico;
+        document.getElementById("telefono-solicitud-beca").value = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.telefonoContacto;
+        document.getElementById("pais-nacimiento-solicitud-beca").value = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.paisNacimiento;
+        document.getElementById("ciudad-nacimiento-solicitud-beca").value = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.ciudadNacimiento;
+        document.getElementById("cedula-solicitud-beca").value = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.cedula;
+        document.getElementById("carrera-solicitud-beca").value = usuarios[idUsuarioActual].carrera;
+        document.getElementById("centro-procedencia-solicitud-beca").value = usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.centroEducativoProcedencia;
+        mostrarSolicitarBeca();
+    }else{
+        alert("Necesita ser Admitido para poder solicitar una beca");
+    }
+}
+
+function vaciarCamposSolicitudBeca(){
+    document.getElementById("nombre-solicitud-beca").value = "";
+    document.getElementById("matricula-solicitud-beca").value = "";
+    document.getElementById("correo-solicitud-beca").value = "";
+    document.getElementById("telefono-solicitud-beca").value = "";
+    document.getElementById("pais-nacimiento-solicitud-beca").value = "";
+    document.getElementById("ciudad-nacimiento-solicitud-beca").value = "";
+    document.getElementById("cedula-solicitud-beca").value = "";
+    document.getElementById("cuatrimestre-inicio-solicitud-beca").value = "";
+    document.getElementById("carrera-solicitud-beca").value = "";
+    document.getElementById("fecha-solicitud-beca").value = "";
+    document.getElementById("centro-procedencia-solicitud-beca").value = "";
+    document.getElementById("telefono-centro-procedencia-solicitud-beca").value = "";
+    document.getElementById("correo-centro-procedencia-solicitud-beca").value = "";
+    mostrarSolicitarBeca();
+
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // ver estado beca
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function mostrarTablaVerEstadoBeca(){
+
+    var tabla = document.getElementById("tabla-ver-estado-beca");
+    tabla.innerHTML = "";
+    var cuerpoTabla = document.createElement("tbody");
+
+    if(usuarios[idUsuarioActual].solicitudBeca.aprobada){
+        usuarios[idUsuarioActual].beca = true;
+        usuarios[idUsuarioActual].fuenteEstudio = "Beca Excelencia";
+    }
+
+    if(usuarios[idUsuarioActual].beca){
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textCelda = document.createTextNode("Fecha Solicitud");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textCelda = document.createTextNode("Cuatrimestre Inicio");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textCelda = document.createTextNode("Fuente de Estudio");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textCelda = document.createTextNode("Recinto");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textCelda = document.createTextNode("Estado");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        cuerpoTabla.appendChild(fila);
+
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode(usuarios[idUsuarioActual].solicitudBeca.fechaSolicitud);
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode(usuarios[idUsuarioActual].solicitudBeca.cuatrimestreInicio);
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode(usuarios[idUsuarioActual].fuenteEstudio);
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode("La Caleta, Boca Chica");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode("Activa");
+        celda.style.backgroundColor = "#00FF00";
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        cuerpoTabla.appendChild(fila);
+
+
+    }else{
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode("No dispone de ninguna Beca en estos momentos");
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textCelda = document.createTextNode("Inactiva");
+        celda.style.backgroundColor = "tomato";
+        celda.appendChild(textCelda);
+        fila.appendChild(celda);
+
+
+    }
+
+    
+    tabla.appendChild(cuerpoTabla);
+
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // balance pendiente
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+var contadorBalancesPendientes = 0;
+
+class BalancePendiente{
+    constructor(descripcion,monto){
+        this.descripcion = descripcion;
+        this.referencia = contadorBalancesPendientes++;
+        this.monto = monto;
+        
+        this.pago = false;
+
+        var f = new Date();
+        this.fechaGenerado = (f.getMonth() +1) + "-" + f.getDate() + "-" + f.getFullYear();
+
+        // al pagar
+
+        this.numeroTarjetaCredito;
+        this.fechaVencimientoTarjeta;
+        this.codigoTarjeta;
+        this.cedulaTarjeta;
+        this.fechaPago;
+    }
+}
+
+var balancesPendientes = [];
+
+
+
+function mostrarTablaBalancesPendientes(){
+
+    var tabla = document.getElementById("tabla-balance-pendiente");
+    tabla.innerHTML = "";
+    var cuerpoTabla = document.createElement("tbody");
+
+    
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Descripcion");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Referencia");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Monto");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Fecha Generado");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    cuerpoTabla.appendChild(fila);
+
+    for(var i = 0; i < usuarios[idUsuarioActual].balancesPendientes.length; i++){
+
+        if(!usuarios[idUsuarioActual].balancesPendientes[i].pago){
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("td");
+            var textCelda = document.createTextNode(usuarios[idUsuarioActual].balancesPendientes[i].descripcion);
+            celda.appendChild(textCelda);
+            fila.appendChild(celda);
+
+            var celda = document.createElement("td");
+            var textCelda = document.createTextNode(usuarios[idUsuarioActual].balancesPendientes[i].referencia);
+            celda.appendChild(textCelda);
+            fila.appendChild(celda);
+
+            var celda = document.createElement("td");
+            var textCelda = document.createTextNode(usuarios[idUsuarioActual].balancesPendientes[i].monto);
+            celda.appendChild(textCelda);
+            fila.appendChild(celda);
+
+            var celda = document.createElement("td");
+            var textCelda = document.createTextNode(usuarios[idUsuarioActual].balancesPendientes[i].fechaGenerado);
+            celda.appendChild(textCelda);
+            fila.appendChild(celda);
+
+            cuerpoTabla.appendChild(fila);
+
+        }
+
+    }
+
+    tabla.appendChild(cuerpoTabla);
+
+}
+
+function agregarBalancePendiente(descripcion,monto){
+    var balancePendiente = new BalancePendiente(descripcion,monto);
+    usuarios[idUsuarioActual].balancesPendientes.push(balancePendiente);
+}
+
+function agregarBalancePendienteBoton(){
+    var descripcion = prompt("Descripcion:");
+    var monto = parseInt(prompt("Monto:"));
+    agregarBalancePendiente(descripcion,monto);
+    mostrarBalancePendiente();
+}
+
+function eliminarBalance(){
+    var referencia = parseInt(prompt("Ingrese la Referencia a Eliminar:"));
+    for(var i = 0; i < usuarios[idUsuarioActual].balancesPendientes.length; i++){
+        if(usuarios[idUsuarioActual].balancesPendientes[i].referencia === referencia){
+            alert(usuarios[idUsuarioActual].balancesPendientes[i].descripcion + " Elimianado");
+            usuarios[idUsuarioActual].balancesPendientes.splice(i,1);
+            break;
+        }
+    }
+    mostrarBalancePendiente();
+}
+
+function marcarPagadoBalancePendiente(){
+    var referencia = parseInt(prompt("Ingrese la Referencia a Marcar como Pagado:"));
+    for(var i = 0; i < usuarios[idUsuarioActual].balancesPendientes.length; i++){
+        if(usuarios[idUsuarioActual].balancesPendientes[i].referencia === referencia){
+            alert(usuarios[idUsuarioActual].balancesPendientes[i].descripcion + " Pagado");
+            usuarios[idUsuarioActual].balancesPendientes[i].pago = true;
+            break;
+        }
+    }
+    mostrarBalancePendiente();
+}
+
+
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // pago online 
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function vaciarCamposPagoOnline(){
+
+    document.getElementById("descripcion-pago-caja").value = "Concepto Pago";
+    document.getElementById("referencia-pago-caja").value = "";
+    document.getElementById("numero-tarjeta-credito-caja").value = "";
+    document.getElementById("fecha-vencimiento-tarjeta-caja").value = "";
+    document.getElementById("codigo-tarjeta-caja").value = "";
+    document.getElementById("cedula-identidad-tarjeta-caja").value = "";
+    mostrarPagoOnline();
+
+}
+
+function enviarPagoOnline(){
+
+    var descripcion = document.getElementById("descripcion-pago-caja").value;
+    var referencia = parseInt(document.getElementById("referencia-pago-caja").value);
+    var numeroTarjetaCredito = document.getElementById("numero-tarjeta-credito-caja").value;
+    var fechaVencimientoTarjeta = document.getElementById("fecha-vencimiento-tarjeta-caja").value;
+    var codigoTarjeta = document.getElementById("codigo-tarjeta-caja").value;
+    var cedulaTarjeta = document.getElementById("cedula-identidad-tarjeta-caja").value;
+    
+    var referenciaEncontrada = false;
+    for(var i = 0; i < usuarios[idUsuarioActual].balancesPendientes.length; i++){
+        if(usuarios[idUsuarioActual].balancesPendientes[i].referencia === referencia){
+            if(usuarios[idUsuarioActual].balancesPendientes[i].descripcion === descripcion){
+                
+                usuarios[idUsuarioActual].balancesPendientes[i].pago = true;
+                usuarios[idUsuarioActual].balancesPendientes[i].numeroTarjetaCredito = numeroTarjetaCredito;
+                usuarios[idUsuarioActual].balancesPendientes[i].fechaVencimientoTarjeta = fechaVencimientoTarjeta;
+                usuarios[idUsuarioActual].balancesPendientes[i].codigoTarjeta = codigoTarjeta;
+                usuarios[idUsuarioActual].balancesPendientes[i].cedulaTarjeta = cedulaTarjeta;
+                var f = new Date();
+                usuarios[idUsuarioActual].balancesPendientes[i].fechaPago = (f.getMonth() +1) + "-" + f.getDate() + "-" + f.getFullYear();
+
+                alert(usuarios[idUsuarioActual].balancesPendientes[i].descripcion + ", Realizado Correctamente");
+                referenciaEncontrada = true;
+                
+                break;
+            }
+        }
+    }
+
+    if(!referenciaEncontrada){
+        alert("Referencia no Encontrada");
+    }else{
+        vaciarCamposPagoOnline();
+    }
 
 }
 
@@ -1930,8 +2746,10 @@ function mostrarTablaConsultarCalificacion(){
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
 
+        var sumatoria = usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].primerParcial + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].segundoParcial + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].practicas + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].final;
+
         var celda = document.createElement("th");
-        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].primerParcial + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].segundoParcial + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].practicas + usuarios[idUsuarioActual].materiasSeleccionadasActualmente[i].final);
+        var textoCelda = document.createTextNode(sumatoria);
         celda.appendChild(textoCelda);
         fila.appendChild(celda);
 
@@ -2000,6 +2818,164 @@ function oficializarCalificacion(){
 
 function mostrarTablaHistorialCalificacion(){
 
+    if(usuarios[idUsuarioActual].historialMaterias.length === 0){
+        
+        console.error("La tabla no contiene ningun elemento, por favor agreguele elementos"); 
+        
+    }else{
+        
+        var tbl = document.getElementById("tabla-historial-calificaciones");
+
+        // borrando el contenido de la tabla si existe para que no se repital
+        tbl.innerHTML = "";
+
+        var tblBody = document.createElement("tbody");    
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Id");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Codigo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Nombre");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("1P");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("2P");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Pract./Pro.");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("F");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("T");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        tblBody.appendChild(fila);
+        
+        
+
+        for (var i = 0; i < usuarios[idUsuarioActual].historialMaterias.length; i++) {
+
+
+
+            if(i > 0){
+                if(usuarios[idUsuarioActual].historialMaterias[i].cuatrimestre > usuarios[idUsuarioActual].historialMaterias[i-1].cuatrimestre){
+                    var fila = document.createElement("tr");
+
+                    var celda = document.createElement("th");
+                    var textoCelda = document.createTextNode("Cuatrimestre " + usuarios[idUsuarioActual].historialMaterias[i].cuatrimestre);
+                    celda.appendChild(textoCelda);
+                    celda.setAttribute("colspan","8");
+                    fila.appendChild(celda);
+                    tblBody.appendChild(fila);
+                }
+            }else if(i === 0){
+                var fila = document.createElement("tr");
+
+                var celda = document.createElement("th");
+                var textoCelda = document.createTextNode("Cuatrimestre " + usuarios[idUsuarioActual].historialMaterias[i].cuatrimestre);
+                celda.appendChild(textoCelda);
+                celda.setAttribute("colspan","8");
+                fila.appendChild(celda);
+                tblBody.appendChild(fila);
+            }
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(i);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].codigo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].nombre);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].primerParcial);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].segundoParcial);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].practicas);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].historialMaterias[i].final);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var sumatoria = usuarios[idUsuarioActual].historialMaterias[i].primerParcial + usuarios[idUsuarioActual].historialMaterias[i].segundoParcial + usuarios[idUsuarioActual].historialMaterias[i].practicas + usuarios[idUsuarioActual].historialMaterias[i].final;
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode(sumatoria);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        var condicion;
+
+        if(sumatoria >= 90 && sumatoria <= 100){
+            condicion = "A";
+        }else if(sumatoria >= 80 && sumatoria < 90){
+            codicion = "B";
+        }else if(sumatoria >= 70 && sumatoria < 80){
+            condicion = "C";
+        }else if(sumatoria < 70){
+            condicion = "F";
+        }
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode(condicion);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);
+
+        tblBody.appendChild(fila);
+            
+            
+        }
+    
+        tbl.appendChild(tblBody);
+        tbl.setAttribute("border", "2");
+        
+        console.info("Tabla generada exitosamente");
+    
+    }
+
 }
 
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -2050,4 +3026,836 @@ function aprobarSolicitudSalidaResidencia(){
 
 function denegarSolicitudSalidaResidencia(){
 
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // cambiar correo
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function cambiarCorreoElectronico(){
+
+    var correoActual = document.getElementById("correo-actual-cambiar-correo").value;
+    var nuevoCorreo = document.getElementById("nuevo-correo-cambiar-correo").value;
+    var confirmarNuevoCorreo = document.getElementById("confirmar-correo-cambiar-correo").value;
+    var contraseña = document.getElementById("contraseña-cambiar-correo").value;
+
+    if(correoActual === usuarios[idUsuarioActual].correoElectronico){
+        if(nuevoCorreo === confirmarNuevoCorreo){
+            if(contraseña === usuarios[idUsuarioActual].contraseña){
+
+                usuarios[idUsuarioActual].correoElectronico = nuevoCorreo;
+                alert("Correo Electronico de la cuenta cambiado Exitosamente");
+                vaciarCamposCambiarCorreo();
+                mostrarLogin();
+
+            }else{
+                alert("Contraseña Incorrecta");
+            }
+        }else{
+            alert("El nuevo correo no coincide con su confirmacion");
+        }
+    }else{
+        alert("El correo Actual no coincide con el correo de la cuenta");
+    }
+
+}
+
+function vaciarCamposCambiarCorreo(){
+    document.getElementById("correo-actual-cambiar-correo").value = "";
+    document.getElementById("nuevo-correo-cambiar-correo").value = "";
+    document.getElementById("confirmar-correo-cambiar-correo").value = "";
+    document.getElementById("contraseña-cambiar-correo").value = "";
+    mostrarCambiarCorreo();
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // cambiar contraseña
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function cambiarContraseña(){
+
+    var contraseñaActual = document.getElementById("contraseña-actual-cambiar-contraseña").value;
+    var contraseñaNueva = document.getElementById("contraseña-nueva-cambiar-contraseña").value;
+    var confirmarContraseñaNueva = document.getElementById("contraseña-confirmar-cambiar-contraseña").value;
+
+    if(contraseñaActual === usuarios[idUsuarioActual].contraseña){
+        if(contraseñaNueva === confirmarContraseñaNueva){
+
+            usuarios[idUsuarioActual].contraseña = contraseñaNueva;
+            alert("Contraseña cambiada exitosamente");
+            vaciarCamposCambiarContraseña();
+            mostrarLogin();
+
+        }else{
+            alert("La Contraseña nueva no coincide con su confirmacion");
+        }
+    }else{
+        alert("La Contraseña ingresada no coincide con la contraseña de la cuenta");
+    }
+
+}
+
+function vaciarCamposCambiarContraseña(){
+    document.getElementById("contraseña-actual-cambiar-contraseña").value = "";
+    document.getElementById("contraseña-nueva-cambiar-contraseña").value = "";
+    document.getElementById("contraseña-confirmar-cambiar-contraseña").value = "";
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // mostrar usuarios registrados
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function mostrarTablaUsuariosRegistrados(){
+
+    var tbl = document.getElementById("tabla-usuarios-registrados");
+
+        // borrando el contenido de la tabla si existe para que no se repital
+        tbl.innerHTML = "";
+
+        var tblBody = document.createElement("tbody");   
+
+        for(var i = 0; i <usuarios.length; i++){
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("");
+            celda.appendChild(textoCelda);
+            celda.setAttribute("colspan",4);
+            fila.appendChild(celda);        
+
+            tblBody.appendChild(fila);
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("ID");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].idUsuario);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Correo Electronico");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].correoElectronico);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // segunda fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Tipo Cuenta");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].tipo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Fecha Creacion");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].fechaCreacion);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // tercera fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Nombre");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].nombre);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Fecha Nacimiento");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].fechaNacimiento);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // cuarta fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Cedula");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].cedula);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Edad");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].edad);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // quinta fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Carrera o Departamento");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].carreraDepartamento);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Sexo");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.sexo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // sexta fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Pais Nacimiento");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.paisNacimiento);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Ciudad Nacimiento");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.ciudadNacimiento);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // septima fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Calle Numero");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.calleNumero);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Barrio o Sector");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.barrioSector);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // octava fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Ciudad");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.ciudad);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Pais Residencia");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.paisResidencia);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // novena fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Telefono Contacto");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.telefonoContacto);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Facebook");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.facebook);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // decima fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Lugar de Trabajo");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.lugarTrabajo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Cargo Trabajo");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.cargoTrabajo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // onceava fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Telefono Trabajo");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.telefonoTrabajo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Extension Trabajo");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.extensionTrabajo);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // doceava fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Año Ingreso");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.añoIngreso);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Cuatrimestre Ingreso");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.cuatrimestreIngreso);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila);
+
+            // decimotercera fila
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Centro Educativo Procedencia");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.centroEducativoProcedencia);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);   
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("Fecha Solicitud Admision");
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda); 
+            
+            var celda = document.createElement("td");
+            var textoCelda = document.createTextNode(usuarios[i].documentosAdmision.formularioAdmision.fechaSolicitud);
+            celda.appendChild(textoCelda);
+            fila.appendChild(celda);  
+
+            tblBody.appendChild(fila); 
+
+            var fila = document.createElement("tr");
+
+            var celda = document.createElement("th");
+            var textoCelda = document.createTextNode("");
+            celda.appendChild(textoCelda);
+            celda.setAttribute("colspan",4);
+            fila.appendChild(celda);        
+
+            tblBody.appendChild(fila);
+
+        }
+        
+    
+        tbl.appendChild(tblBody);
+}
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+                                // informacion usuario
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+function mostrarTablaInformacionUsuario(){
+
+    var tbl = document.getElementById("tabla-informacion-usuario");
+
+        // borrando el contenido de la tabla si existe para que no se repital
+        tbl.innerHTML = "";
+
+        var tblBody = document.createElement("tbody");    
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("");
+        celda.appendChild(textoCelda);
+        celda.setAttribute("colspan",4);
+        fila.appendChild(celda);        
+
+        tblBody.appendChild(fila);
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("ID");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].idUsuario);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Correo Electronico");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].correoElectronico);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // segunda fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Tipo Cuenta");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].tipo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Fecha Creacion");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].fechaCreacion);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // tercera fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Nombre");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].nombre);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Fecha Nacimiento");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].fechaNacimiento);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // cuarta fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Cedula");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].cedula);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Edad");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].edad);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // quinta fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Carrera o Departamento");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].carreraDepartamento);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Sexo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.sexo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // sexta fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Pais Nacimiento");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.paisNacimiento);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Ciudad Nacimiento");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.ciudadNacimiento);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // septima fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Calle Numero");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.calleNumero);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Barrio o Sector");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.barrioSector);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // octava fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Ciudad");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.ciudad);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Pais Residencia");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.paisResidencia);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // novena fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Telefono Contacto");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.telefonoContacto);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Facebook");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.facebook);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // decima fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Lugar de Trabajo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.lugarTrabajo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Cargo Trabajo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.cargoTrabajo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // onceava fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Telefono Trabajo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.telefonoTrabajo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Extension Trabajo");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.extensionTrabajo);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // doceava fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Año Ingreso");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.añoIngreso);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Cuatrimestre Ingreso");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.cuatrimestreIngreso);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila);
+
+        // decimotercera fila
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Centro Educativo Procedencia");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.centroEducativoProcedencia);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);   
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("Fecha Solicitud Admision");
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda); 
+        
+        var celda = document.createElement("td");
+        var textoCelda = document.createTextNode(usuarios[idUsuarioActual].documentosAdmision.formularioAdmision.fechaSolicitud);
+        celda.appendChild(textoCelda);
+        fila.appendChild(celda);  
+
+        tblBody.appendChild(fila); 
+
+        var fila = document.createElement("tr");
+
+        var celda = document.createElement("th");
+        var textoCelda = document.createTextNode("");
+        celda.appendChild(textoCelda);
+        celda.setAttribute("colspan",4);
+        fila.appendChild(celda);        
+
+        tblBody.appendChild(fila);
+        
+    
+        tbl.appendChild(tblBody);
 }

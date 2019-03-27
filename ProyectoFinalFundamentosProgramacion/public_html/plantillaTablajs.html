@@ -1,0 +1,36 @@
+var tabla = document.getElementById("tabla-ver-estado-beca");
+    tabla.innerHTML = "";
+    var cuerpoTabla = document.createElement("tbody");
+
+    
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("th");
+    var textCelda = document.createTextNode("Fecha Solicitud");
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    
+
+    cuerpoTabla.appendChild(fila);
+
+
+    var fila = document.createElement("tr");
+
+    var celda = document.createElement("td");
+    var textCelda = document.createTextNode(usuarios[idUsuarioActual].solicitudBeca.fechaSolicitud);
+    celda.appendChild(textCelda);
+    fila.appendChild(celda);
+
+    
+
+    cuerpoTabla.appendChild(fila);
+
+
+    
+
+     
+
+    
+    tabla.appendChild(cuerpoTabla);
